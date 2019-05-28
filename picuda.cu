@@ -8,8 +8,8 @@
 //Tiempo
 #include <ctime>
 
-#define BLOCKS  40
-#define NUMTHREADS 8192
+#define BLOCKS  80
+#define NUMTHREADS 10240
 #define ITERATIONS 1e12
 
 /**
