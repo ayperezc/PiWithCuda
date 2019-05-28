@@ -8,7 +8,6 @@
 //Tiempo
 #include <ctime>
 
-#define BLOCKS  80
 #define NUMTHREADS 10240
 #define ITERATIONS 1e12
 
@@ -86,7 +85,6 @@ int main(int argc, char *argv[])
     clock_t t;
     t = clock();
     // Lanzar KERNEL
-    blocksPerGrid = BLOCKS;
     threadsPerBlock = NUMTHREADS/blocksPerGrid;
     totalThreads = blocksPerGrid * threadsPerBlock;
     iterations = ITERATIONS;
