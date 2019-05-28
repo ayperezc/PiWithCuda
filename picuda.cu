@@ -5,6 +5,8 @@
 #include <math.h>
 // For the CUDA runtime routines (prefixed with "cuda_")
 #include <cuda_runtime.h>
+//Tiempo
+#include <ctime>
 
 #define BLOCKS  40
 #define NUMTHREADS 8192
@@ -80,7 +82,9 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Failed to copy vector C from device to host (error code %s)!\n", cudaGetErrorString(err));
         exit(EXIT_FAILURE);
     }
-
+    
+    clock_t t;
+    t = clock();
     // Lanzar KERNEL
     blocksPerGrid = BLOCKS;
     threadsPerBlock = NUMTHREADS/blocksPerGrid;
@@ -108,6 +112,8 @@ int main(int argc, char *argv[])
 
     printf("\n%.12f", *h_pitotal);
     // Free host memory
+    t = clock() - t;
+    printf ("It took me %d clicks (%f seconds).\n",(int)t,((float)t)/CLOCKS_PER_SEC);
 
     free(h_pitotal);
     err = cudaDeviceReset();
