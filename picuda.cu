@@ -8,7 +8,7 @@
 
 #define BLOCKS  40
 #define NUMTHREADS 8192
-#define ITERATIONS 1e12
+#define ITERATIONS 2e9
 
 /**
  * CUDA Kernel Device code
