@@ -6,9 +6,9 @@
 // For the CUDA runtime routines (prefixed with "cuda_")
 #include <cuda_runtime.h>
 
-//#define BLOCKS  512
+#define BLOCKS  40
 #define NUMTHREADS 8192
-#define ITERATIONS 2e09
+#define ITERATIONS 1000000
 
 /**
  * CUDA Kernel Device code
@@ -54,14 +54,7 @@ int main(int argc, char *argv[])
 {   
     int blocksPerGrid, threadsPerBlock, i, size;
     long int iterations;
-    int totalThreads;
     double *h_pitotal, *d_pitotal;
-    
-    // Instanciar variables
-    blocksPerGrid = 40;
-    threadsPerBlock = 128;
-    iterations = 1000000;
-    totalThreads = threadsPerBlock*blocksPerGrid;
     
     sscanf(argv[1], "%i", &blocksPerGrid);
     cudaError_t err = cudaSuccess;
@@ -89,6 +82,7 @@ int main(int argc, char *argv[])
     }
 
     // Lanzar KERNEL
+    blocksPerGrid = BLOCKS;
     threadsPerBlock = NUMTHREADS/blocksPerGrid;
     totalThreads = blocksPerGrid * threadsPerBlock;
     iterations = ITERATIONS;
