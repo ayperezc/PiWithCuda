@@ -1,8 +1,6 @@
-
 /**
  * calculate pi
  */
-
 #include <stdio.h>
 #include <math.h>
 // For the CUDA runtime routines (prefixed with "cuda_")
@@ -19,16 +17,17 @@
 /*****************************************************************************/
 
 __global__ void calculatePi(double *piTotal, long int iterations, int totalThreads)
-{   long int initIteration, endIteration;
+{   long int initialIteration, endIteration;
     long int i = 0;
     double piPartial;
     
+    //TamanioBloque*IdBloque + IdHilo 
     int index = (blockDim.x * blockIdx.x) + threadIdx.x;
 
-    initIteration = (iterations/totalThreads) * index;
-    endIteration = initIteration + (iterations/totalThreads) - 1;
+    initialIteration = (iterations/totalThreads) * index;
+    endIteration = initialIteration + (iterations/totalThreads) - 1;
     
-    i = initIteration;
+    i = initialIteration;
     piPartial = 0;
     
     do{
@@ -57,6 +56,12 @@ int main(int argc, char *argv[])
     long int iterations;
     int totalThreads;
     double *h_pitotal, *d_pitotal;
+    
+    // Instanciar variables
+    blocksPerGrid = 40;
+    threadsPerBlock = 128;
+    iterations = 1000000;
+    totalThreads = threadsPerBlock*blocksPerGrid;
     
     sscanf(argv[1], "%i", &blocksPerGrid);
     cudaError_t err = cudaSuccess;
