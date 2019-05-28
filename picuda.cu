@@ -52,7 +52,7 @@ __global__ void calculatePi(double *piTotal, long int iterations, int totalThrea
  */
 int main(int argc, char *argv[])
 {   
-    int blocksPerGrid, threadsPerBlock, i, size;
+    int totalThreads, blocksPerGrid, threadsPerBlock, i, size;
     long int iterations;
     double *h_pitotal, *d_pitotal;
     
